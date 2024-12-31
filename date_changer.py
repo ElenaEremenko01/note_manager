@@ -1,5 +1,3 @@
-from datetime import datetime
-
 created_date = '26.12.2024'
 issue_date = '31.12.2024'
 
