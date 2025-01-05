@@ -13,8 +13,8 @@ def status():# создаем функцию
         # Запрос нового статуса (число)
         try:
             choice = int(input("Ваш выбор: "))
-            if 1 <= choice <= len(possible_statuses):
-                # Обновление статуса
+            if 1 <= choice <= len(possible_statuses): # создаем условие, что если введенная цифра, в диапазоне от 1 до 3 (проходимся по длине списка)
+                # Обновление статус
                 current_status = possible_statuses[choice - 1]# Текущий статус будет отображаться по индексу списка
                 print(f'\nСтатус заметки успешно обновлён на: "{current_status}"')
                 break
