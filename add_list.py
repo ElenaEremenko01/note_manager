@@ -1,18 +1,12 @@
 username = input('Введите имя пользователя:' )
 title = input('Введите заголовок заметки:' )
-subtitle1 = input('Введите подзаголовок №1:')
-subtitle2 = input('Введите подзаголовок №2:')
-subtitle3 = input('Введите подзаголовок №3:')
-subtitle = [subtitle1 , subtitle2, subtitle3]
+subtitle1 = input('Введите заголовок заметки:')
+subtitle2 = input('Введите заголовок заметки:')
+subtitle3 = input('Введите заголовок заметки:')
+title_list = [title, subtitle1 , subtitle2, subtitle3]
 content = input('Опишите заметку:' )
-status = input('Укажите статус заметки:' )
 created_date = input('Введите дату создания заметки в формате (дд.мм.):')
 issue_date = input('Введите дату истечения заметки (дедлайн) в формате (дд.мм.):')
 
-print(username)
-print(title)
+
 print(subtitle)
-print(content)
-print(status)
-print(created_date[0:5])
-print(issue_date[0:5])
