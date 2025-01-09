@@ -88,10 +88,11 @@ def add_note():
         if new_note == 'да':
             continue
         if new_note == 'нет':
+            unique_notes1 = list(set(new_note)) # выводим только уникальные заметки
             print('Список заметок:')
-            print(id_note(note_list)) # вызывает функцию для отображения заметок с порядковым номером, передаем этой функции наш список со всеми заметками
+            print(id_note(unique_notes1)) # вызывает функцию для отображения заметок с порядковым номером, передаем этой функции наш список со всеми заметками
             break
-    return list(note_list)
+
 
 
 add_note()
