@@ -46,7 +46,7 @@ def create_note():
 
     issue_date = input('Введите дату истечения заметки (дедлайн) в формате (дд.мм.гггг):')
     while True:
-        if issue_date == '' or issue_date == ' ':
+        if issue_date == '' or issue_date == ' ': # если поле будет пустым по умолчанию к текущей дате добавится 14 дней
             temp_date = dt.now() + td(days=14)
             issue_date = temp_date.strftime('%d.%m.%Y')
         try:
