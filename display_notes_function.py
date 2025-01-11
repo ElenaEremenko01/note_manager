@@ -27,10 +27,10 @@ def display_notes(note_list):
                     sorted_data = note_list
                  # Цикл для отображения укороченного списка заметок с использованием цветов
                 for i, note in enumerate(sorted_data, 1):
-                    print(f'{Fore.MAGENTA}Заметка №{i}.')
-                    print(f'{Style.BRIGHT}Имя пользователя: {note["Имя пользователя"]}')
-                    print(f'{Style.BRIGHT}Заголовок заметки: {note["Заголовок"]}')
-                    print('_______________')
+                    print(f'{Fore.MAGENTA}{Style.BRIGHT}Заметка №{i}.')
+                    print(f'{Style.BRIGHT}Имя пользователя: {Style.NORMAL}{note["Имя пользователя"]}')
+                    print(f'{Style.BRIGHT}Заголовок заметки: {Style.NORMAL}{note["Заголовок"]}')
+                    print(f'{Fore.LIGHTBLACK_EX}_______________')
                 break
             elif choice_for_display == 'полные данные':
                 while True:
@@ -46,14 +46,14 @@ def display_notes(note_list):
                     sorted_data = note_list
                 # Цикл для отображения удлененного списка заметок с использованием цветов
                 for i, note in enumerate(sorted_data, 1):
-                    print(f'{Fore.MAGENTA}Заметка №{i}.')
-                    print(f'{Style.BRIGHT}Имя пользователя: {note["Имя пользователя"]}')
-                    print(f'{Style.BRIGHT}Заголовок заметки: {note["Заголовок"]}')
-                    print(f'{Style.BRIGHT}Описание заметки: {note['Содержание']}')
-                    print(f'{Style.BRIGHT}Статус заметки: {note["Статус"]}')
-                    print(f'{Style.BRIGHT}Дата создания заметки: {note["Дата создания заметки"]}')
-                    print(f'{Style.BRIGHT}Дата истечения заметки: {note["Дата истечения заметки"]}')
-                    print('_______________')
+                    print(f'{Fore.MAGENTA}{Style.BRIGHT}Заметка №{i}.')
+                    print(f'{Style.BRIGHT}Имя пользователя: {Style.NORMAL}{note["Имя пользователя"]}')
+                    print(f'{Style.BRIGHT}Заголовок заметки: {Style.NORMAL}{note["Заголовок"]}')
+                    print(f'{Style.BRIGHT}Описание заметки: {Style.NORMAL}{note['Содержание']}')
+                    print(f'{Style.BRIGHT}Статус заметки: {Style.NORMAL}{note["Статус"]}')
+                    print(f'{Style.BRIGHT}Дата создания заметки: {Style.NORMAL}{note["Дата создания заметки"]}')
+                    print(f'{Style.BRIGHT}Дата истечения заметки: {Style.NORMAL}{note["Дата истечения заметки"]}')
+                    print(f'{Fore.LIGHTBLACK_EX}_______________')
                 break
              # обработка ошибок
             else:
@@ -65,7 +65,8 @@ notes = [{'Имя пользователя': 'Алексей',
               'Содержание': 'Купить продукты на неделю',
               'Статус': 'новая',
               'Дата создания заметки': '28.11.2024',
-              'Дата истечения заметки': '30.11.2024'}, {'Имя пользователя': 'Маша',
+              'Дата истечения заметки': '30.11.2024'},
+         {'Имя пользователя': 'Маша',
               'Заголовок': 'Список покупок',
               'Содержание': 'Купить продукты на неделю',
               'Статус': 'новая',
