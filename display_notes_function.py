@@ -1,5 +1,6 @@
 from datetime import datetime as dt
 from colorama import Fore, Style, init
+from tabulate import tabulate
 init(autoreset=True)# сбрасываем стиль, чтобы цвета в цикле не повторялись
 #Создаем функцию для отображения заметок
 def display_notes(note_list):
@@ -7,71 +8,66 @@ def display_notes(note_list):
     if not note_list:
         print(Fore.GREEN +'Копировать код')
         print(Fore.GREEN + 'У вас нет сохранённых заметок')
-    if note_list:
-        #Цикл для запроса способа отображения заметок
-        while True:
-            choice_for_display = input(f'Вывести только заголовки заметок или полные данные?{Style.BRIGHT} {Fore.CYAN}(Заголовки/Полные данные):').strip().lower()
-            if choice_for_display == 'заголовки':
-                while True:
-                    # цикл для сортировки данных по дэдлайну
-                    choice_for_sorted = input(f'Желаете отсортировать заметки по дате дэдлайна?{Style.BRIGHT} {Fore.CYAN}(да\нет):').strip().lower()
-                    if choice_for_sorted in ['да', 'нет']:
-                        break
-                    # Обработка ошибок
-                    else:
-                        print(Fore.RED + Style.BRIGHT+'Ошибка!!!')
-                        print(f'{Fore.RED}Ответ может быть:{Style.BRIGHT}{Fore.RED} да\нет')
-                if choice_for_sorted == 'да':
-                    sorted_data = sorted(note_list, key=lambda x: dt.strptime(x['Дата истечения заметки'], '%d.%m.%Y'))
+    #Цикл для запроса способа отображения заметок
+    while True:
+        choice_for_display = input(f'Вывести только заголовки заметок или полные данные?{Style.BRIGHT} {Fore.CYAN}(Заголовки/Полные данные):').strip().lower()
+        if choice_for_display == 'заголовки':
+            while True:
+                # цикл для сортировки данных по дэдлайну
+                choice_for_sorted = input(f'Желаете отсортировать заметки по дате дэдлайна?{Style.BRIGHT} {Fore.CYAN}(да\нет):').strip().lower()
+                if choice_for_sorted in ['да', 'нет']:
+                    break
+                # Обработка ошибок
                 else:
-                    sorted_data = note_list
-                 # Цикл для отображения укороченного списка заметок с использованием цветов
-                for i, note in enumerate(sorted_data, 1):
-                    print(f'{Fore.MAGENTA}{Style.BRIGHT}Заметка №{i}.')
-                    print(f'{Style.BRIGHT}Имя пользователя: {Style.NORMAL}{note["Имя пользователя"]}')
-                    print(f'{Style.BRIGHT}Заголовок заметки: {Style.NORMAL}{note["Заголовок"]}')
-                    print(f'{Fore.LIGHTBLACK_EX}_______________')
-                break
-            elif choice_for_display == 'полные данные':
-                while True:
-                    choice_for_sorted = input(f'Желаете отсортировать заметки по дате дэдлайна?{Style.BRIGHT}{Fore.CYAN}(да\нет)').strip().lower()
-                    if choice_for_sorted in ['да', 'нет']:
-                        break
-                    else:
-                        print(Fore.RED + Style.BRIGHT + 'Ошибка!!!')
-                        print(f'{Fore.RED}Ответ может быть: {Style.BRIGHT}{Fore.RED}да\нет')
-                if choice_for_sorted == 'да':
-                    sorted_data = sorted(note_list, key=lambda x: dt.strptime(x['Дата истечения заметки'], '%d.%m.%Y'))
-                else:
-                    sorted_data = note_list
-                # Цикл для отображения удлененного списка заметок с использованием цветов
-                for i, note in enumerate(sorted_data, 1):
-                    print(f'{Fore.MAGENTA}{Style.BRIGHT}Заметка №{i}.')
-                    print(f'{Style.BRIGHT}Имя пользователя: {Style.NORMAL}{note["Имя пользователя"]}')
-                    print(f'{Style.BRIGHT}Заголовок заметки: {Style.NORMAL}{note["Заголовок"]}')
-                    print(f'{Style.BRIGHT}Описание заметки: {Style.NORMAL}{note['Содержание']}')
-                    print(f'{Style.BRIGHT}Статус заметки: {Style.NORMAL}{note["Статус"]}')
-                    print(f'{Style.BRIGHT}Дата создания заметки: {Style.NORMAL}{note["Дата создания заметки"]}')
-                    print(f'{Style.BRIGHT}Дата истечения заметки: {Style.NORMAL}{note["Дата истечения заметки"]}')
-                    print(f'{Fore.LIGHTBLACK_EX}_______________')
-                break
-             # обработка ошибок
+                    print(Fore.RED + Style.BRIGHT+'Ошибка!!!')
+                    print(f'{Fore.RED}Ответ может быть:{Style.BRIGHT}{Fore.RED} да\нет')
+            # Сортировка по дате дэдлайна
+            if choice_for_sorted == 'да':
+                sorted_data = sorted(note_list, key=lambda x: dt.strptime(x['Дата истечения заметки'], '%d.%m.%Y'))
             else:
-                print(f'{Style.BRIGHT}{Fore.RED}Ошибка!!!')
-                print(f'{Fore.RED}Ответ может быть:{Style.BRIGHT}Заголовки/Полные данные')
+                sorted_data = note_list
+                # Цикл для отображения укороченного списка заметок с использованием таблицы
+            headers = ['№', 'Имя пользователя', 'Заголовок'] #Собираем названия столбцов для таблицы
+            table_list = []# Создаем пустой список для того, чтобы сюда добавить содержание после enumerate(выведет кортеж)
+            for i, note in enumerate(sorted_data, 1):
+                table_list.append([i, note["Имя пользователя"], note["Заголовок"]] )
+            print(tabulate(table_list, headers= headers, tablefmt='grid', stralign='center'))
+            break
+        elif choice_for_display == 'полные данные':
+            while True:
+                choice_for_sorted = input(f'Желаете отсортировать заметки по дате дэдлайна?{Style.BRIGHT}{Fore.CYAN}(да\нет)').strip().lower()
+                if choice_for_sorted in ['да', 'нет']:
+                    break
+                else:
+                    print(Fore.RED + Style.BRIGHT + 'Ошибка!!!')
+                    print(f'{Fore.RED}Ответ может быть: {Style.BRIGHT}{Fore.RED}да\нет')
+            if choice_for_sorted == 'да':
+                sorted_data = sorted(note_list, key=lambda x: dt.strptime(x['Дата истечения заметки'], '%d.%m.%Y'))
+            else:
+                sorted_data = note_list
+            # Цикл для отображения удлиненного списка заметок с использованием цветов
+            headers = ['№', 'Имя пользователя', 'Заголовок', 'Содержание', 'Статус', 'Дата создания заметки', 'Дата истечения заметки']  # Собираем названия столбцов для таблицы
+            table_list = []
+            for i, note in enumerate(sorted_data, 1):
+                table_list.append([i, note['Имя пользователя'],
+                                       note['Заголовок'],
+                                       note['Содержание'],
+                                       note['Статус'],
+                                       note['Дата создания заметки'],
+                                       note['Дата истечения заметки']])
+            print(tabulate(table_list, headers= headers, tablefmt='grid', stralign='center'))# разделяем каждую заметку в таблице чертой и выравниваем по центру
+            break
+            # обработка ошибок
+        else:
+            print(f'{Style.BRIGHT}{Fore.RED}Ошибка!!!')
+            print(f'{Fore.RED}Ответ может быть:{Style.BRIGHT}Заголовки/Полные данные')
 
-notes = [{'Имя пользователя': 'Алексей',
-              'Заголовок': 'Список покупок',
-              'Содержание': 'Купить продукты на неделю',
-              'Статус': 'новая',
-              'Дата создания заметки': '28.11.2024',
-              'Дата истечения заметки': '30.11.2024'},
-         {'Имя пользователя': 'Маша',
-              'Заголовок': 'Список покупок',
-              'Содержание': 'Купить продукты на неделю',
-              'Статус': 'новая',
-              'Дата создания заметки': '27.11.2024',
-              'Дата истечения заметки': '01.11.2024'}]
+test_notes = [
+        {"Имя пользователя": "Алексей", "Заголовок": "Список покупок", "Содержание": "Купить продукты на неделю", "Статус": "новая", "Дата создания заметки": "27-11-2024", "Дата истечения заметки": "30.11.2024"},
+        {"Имя пользователя": "Мария", "Заголовок": "Учеба", "Содержание": "Подготовиться к экзамену", "Статус": "в процессе", "Дата создания заметки": "25-11-2024", "Дата истечения заметки": "01.12.2024"},
+        {"Имя пользователя": "Иван", "Заголовок": "Работа", "Содержание": "Закончить отчёт", "Статус": "в процессе", "Дата создания заметки": "20-11-2024", "Дата истечения заметки": "28.11.2024"},
+        {"Имя пользователя": "Ольга", "Заголовок": "Здоровье", "Содержание": "Записаться к врачу", "Статус": "новая", "Дата создания заметки": "18-11-2024", "Дата истечения заметки": "23.11.2024"},
+        {"Имя пользователя": "Дмитрий", "Заголовок": "Отпуск", "Содержание": "Собрать документы", "Статус": "новая", "Дата создания заметки": "15-11-2024", "Дата истечения заметки": "20.11.2024"},]
 
 
-display_notes(notes)
+display_notes(test_notes)
