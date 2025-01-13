@@ -4,10 +4,12 @@ from tabulate import tabulate
 init(autoreset=True)# сбрасываем стиль, чтобы цвета в цикле не повторялись
 #Создаем функцию для отображения заметок
 def display_notes(note_list):
-    # Для пустого списка
+    # Для пустого списка, возвращает список
     if not note_list:
         print(Fore.GREEN +'Копировать код')
         print(Fore.GREEN + 'У вас нет сохранённых заметок')
+        return note_list
+
     #Цикл для запроса способа отображения заметок
     while True:
         choice_for_display = input(f'Вывести только заголовки заметок или полные данные?{Style.BRIGHT} {Fore.CYAN}(Заголовки/Полные данные):').strip().lower()
@@ -30,7 +32,7 @@ def display_notes(note_list):
             headers = ['№', 'Имя пользователя', 'Заголовок'] #Собираем названия столбцов для таблицы
             table_list = []# Создаем пустой список для того, чтобы сюда добавить содержание после enumerate(выведет кортеж)
             for i, note in enumerate(sorted_data, 1):
-                table_list.append([i, note["Имя пользователя"], note["Заголовок"]] )
+                table_list.append([i, note["username"], note["title"]] )
             print(tabulate(table_list, headers= headers, tablefmt='grid', stralign='center'))
             break
         elif choice_for_display == 'полные данные':
@@ -42,19 +44,19 @@ def display_notes(note_list):
                     print(Fore.RED + Style.BRIGHT + 'Ошибка!!!')
                     print(f'{Fore.RED}Ответ может быть: {Style.BRIGHT}{Fore.RED}да\нет')
             if choice_for_sorted == 'да':
-                sorted_data = sorted(note_list, key=lambda x: dt.strptime(x['Дата истечения заметки'], '%d.%m.%Y'))
+                sorted_data = sorted(note_list, key=lambda x: dt.strptime(x['issue_date'], '%d.%m.%Y'))
             else:
                 sorted_data = note_list
             # Цикл для отображения удлиненного списка заметок с использованием цветов
             headers = ['№', 'Имя пользователя', 'Заголовок', 'Содержание', 'Статус', 'Дата создания заметки', 'Дата истечения заметки']  # Собираем названия столбцов для таблицы
             table_list = []
             for i, note in enumerate(sorted_data, 1):
-                table_list.append([i, note['Имя пользователя'],
-                                       note['Заголовок'],
-                                       note['Содержание'],
-                                       note['Статус'],
-                                       note['Дата создания заметки'],
-                                       note['Дата истечения заметки']])
+                table_list.append([i, note['username'],
+                                       note['title'],
+                                       note['content'],
+                                       note['status'],
+                                       note['created_date'],
+                                       note['issue_date']])
             print(tabulate(table_list, headers= headers, tablefmt='grid', stralign='center'))# разделяем каждую заметку в таблице чертой и выравниваем по центру
             break
             # обработка ошибок
@@ -63,11 +65,11 @@ def display_notes(note_list):
             print(f'{Fore.RED}Ответ может быть:{Style.BRIGHT}Заголовки/Полные данные')
 
 test_notes = [
-        {"Имя пользователя": "Алексей", "Заголовок": "Список покупок", "Содержание": "Купить продукты на неделю", "Статус": "новая", "Дата создания заметки": "27-11-2024", "Дата истечения заметки": "30.11.2024"},
-        {"Имя пользователя": "Мария", "Заголовок": "Учеба", "Содержание": "Подготовиться к экзамену", "Статус": "в процессе", "Дата создания заметки": "25-11-2024", "Дата истечения заметки": "01.12.2024"},
-        {"Имя пользователя": "Иван", "Заголовок": "Работа", "Содержание": "Закончить отчёт", "Статус": "в процессе", "Дата создания заметки": "20-11-2024", "Дата истечения заметки": "28.11.2024"},
-        {"Имя пользователя": "Ольга", "Заголовок": "Здоровье", "Содержание": "Записаться к врачу", "Статус": "новая", "Дата создания заметки": "18-11-2024", "Дата истечения заметки": "23.11.2024"},
-        {"Имя пользователя": "Дмитрий", "Заголовок": "Отпуск", "Содержание": "Собрать документы", "Статус": "новая", "Дата создания заметки": "15-11-2024", "Дата истечения заметки": "20.11.2024"},]
+        {"username": "Алексей", "title": "Список покупок", "content": "Купить продукты на неделю", "status": "новая", "created_date": "27.11.2024", "issue_date": "30.11.2024"},
+        {"username": "Мария", "title": "Учеба", "content": "Подготовиться к экзамену", "status": "в процессе", "created_date": "25.11.2024", "issue_date": "01.12.2024"},
+        {"username": "Иван", "title": "Работа", "content": "Закончить отчёт", "status": "в процессе", "created_date": "20.11.2024", "issue_date": "28.11.2024"},
+        {"username": "Ольга", "title": "Здоровье", "content": "Записаться к врачу", "status": "новая", "created_date": "18.11.2024", "issue_date": "23.11.2024"},
+        {"username": "Дмитрий", "title": "Отпуск", "content": "Собрать документы", "status": "новая", "created_date": "15.11.2024", "issue_date": "20.11.2024"},]
 
 
 display_notes(test_notes)
