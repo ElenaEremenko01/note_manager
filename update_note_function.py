@@ -1,51 +1,65 @@
 from datetime import datetime as dt
 from datetime import timedelta as td
-
-# Создаем функцию для верного отображения даты, в нужном нам формате
-def validation_date(date_str):
-        try:
-            dt.strptime(date_str,'%d.%m.%Y').date()
-            return True
-        except ValueError:
-            print('Неверный ввод даты. Дату нужно ввести в формате: дд.мм.гггг (Например: 26.12.2000)')
-            return False
+from tabulate import tabulate
+from colorama import Fore, Style, init
+init(autoreset= True)
 
 # Создаем функцию для обновления содержания заметки
 def update_note(note):
     while True: # запрашивает ключ для обновления не чувствительный к регистру
-        choice_for_update = input('Какие данные Вы хотели обновить?(username, title, content, status, created_date, issue_date)').lower()
+        choice_for_update = input(f'Какие данные Вы хотели обновить?{Fore.YELLOW}(username, title, content, status, created_date, issue_date)').strip().lower()
         if choice_for_update not in note: # Если ключа нет в словаре выйдет сообщение об ошибке и цикл повторится
-            print('Введите названия корректно. Поля для обновления могут быть: username, title, content, status, created_date, issue_date')
+            print(f'{Fore.RED}Введите названия корректно. {Fore.RESET}Поля для обновления могут быть:{Fore.YELLOW}{Style.BRIGHT} username, title, content, status, created_date, issue_date')
             continue
-        if choice_for_update in ['username', 'title', 'content', 'status']: # если ключ совпадает с одни из значений в условии
-            item_for_update = input(f'Введите новое значение для {choice_for_update}').lower()#вводим новое значение для обновления
-            confirm_for_update = input(f'Вы действительно хотите обновить значение {choice_for_update} (да\нет)').lower() # подтверждаем запрос для обновления
-            if confirm_for_update == 'да': # если ответ положительный , обновляем значение
+        if choice_for_update in ['username', 'title', 'content', 'status']: # если ключ совпадает с одним из значений в условии
+            item_for_update = input(f'Введите новое значение для {choice_for_update}').strip().lower()#вводим новое значение для обновления
+            confirm_for_update = input(f'Вы действительно хотите обновить значение {choice_for_update} {Fore.YELLOW}{Style.BRIGHT}(да\нет)').strip().lower() # подтверждаем запрос для обновления
+            if confirm_for_update == 'да': # если ответ положительный, обновляем значение
                 note[choice_for_update] = item_for_update
-                print('Обновления внесены')
-                one_more_update = input('Желаете обновить еще одно поле?(да\нет)').lower() #Запрашиваем еще одно поле для обновления
+                print(f'{Fore.GREEN}Обновления внесены')
+                one_more_update = input(f'Желаете обновить еще одно поле?{Fore.YELLOW}{Style.BRIGHT}(да\нет)').lower() #Запрашиваем еще одно поле для обновления
                 if one_more_update == 'да': # если ответ да, то обновляем еще одно поле
                     continue
                 elif one_more_update == 'нет': # если нет, то заканчиваем цикл
-                    print('Обновления внесены')
+                    print(f'{Fore.GREEN}Обновления внесены')
                     break
                 else:
-                    print('Ответ может быть да/нет. Обновление завершено')
+                    print(f'Ответ может быть {Fore.YELLOW}{Style.BRIGHT}да/нет. {Fore.RESET}{Style.NORMAL}Обновление завершено')
                     break
+            elif confirm_for_update == 'нет':
+                print(f'{Style.BRIGHT}Обновления не были внесены.')
+                continue
+
             else:
-                print('Обновления не были внесены.')
-                print('Ответ может быть да/нет. Обновление завершено')
+                print(f'{Style.BRIGHT}Обновления не были внесены.')
+                print(f'Ответ может быть {Fore.YELLOW}{Style.BRIGHT}да/нет {Fore.RESET}{Style.NORMAL}Обновление завершено')
         if choice_for_update in ['created_date', 'issue_date']: # Если ключ относится к дате, то м проверяем в цикле корректность ввода
-            item_for_update = input(f'Введите новое значение для {choice_for_update}').lower()
-            confirm_for_update = input(f'Вы действительно хотите обновить значение {choice_for_update} (да\нет)').lower()
+            item_for_update = input(f'Введите новое значение для {choice_for_update}').strip().lower()
+            try:
+                item_for_update = dt.strptime(item_for_update, '%d.%m.%Y').date()
+            except ValueError:
+                print(f'{Fore.RED}Ошибка!!!')
+                print(f'Дату можно ввести в формате дд.мм.гггг (Например: 01.01.2000)')
+                continue
+            confirm_for_update = input(f'Вы действительно хотите обновить значение {choice_for_update} {Fore.YELLOW}{Style.BRIGHT}(да\нет)').strip().lower()
             if confirm_for_update == 'да':
-                if not validation_date(item_for_update): # Если дата введена неправильно, то выйдет ошибка и цикл повторится
-                    print('Ошибка!!!')
+                note[choice_for_update] = dt.strftime(item_for_update,'%d.%m.%Y')
+                print(f'{Fore.GREEN}Обновления внесены')
+                one_more_update = input(f'Желаете обновить еще одно поле?{Fore.YELLOW}{Style.BRIGHT}(да\нет)').lower()
+                if one_more_update == 'да':
                     continue
-                else:
-                    note[choice_for_update] = item_for_update # если дата корректная, вносим изменения
-                    print('Обновления внесены')
+                elif one_more_update == 'нет':
+                    print(f'{Fore.GREEN}Обновления внесены')
                     break
+                else:
+                    print(f'Ответ может быть {Fore.YELLOW}{Style.BRIGHT}да/нет. {Fore.RESET}{Style.NORMAL}Обновление завершено')
+                    break
+            elif confirm_for_update == 'нет':
+                print(f'{Style.BRIGHT}Обновления не были внесены.')
+                continue
+            else:
+                print(f'{Style.BRIGHT}Обновления не были внесены.')
+                print(f'Ответ может быть {Fore.YELLOW}{Style.BRIGHT}да/нет {Fore.RESET}{Style.NORMAL}Обновление завершено')
 
 
     return list(note) # возвращаем список со словарем
