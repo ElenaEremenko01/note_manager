@@ -15,5 +15,6 @@ while True:
         print(f'{Fore.RED}{Style.BRIGHT}Ошибка!!!')
         print(f'Ответ может быть в диапазоне чисел {Fore.YELLOW} 1,2,3,4,5,6.')
     if menu == 1:
-        print(create_note())
+        note = create_note()
+        print('Новая заметка создана')
 
