@@ -1,3 +1,5 @@
+# Функция обновляет заметку , принимает словарь, ищет по ключу и обновляет значение, заданного ключа
+# Функция проверяет даты на правильность ввода, по ранее заданному формату
 from datetime import datetime as dt
 from datetime import timedelta as td
 from tabulate import tabulate

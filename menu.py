@@ -1,6 +1,4 @@
-from datetime import datetime as dt
-from datetime import timedelta as td
-from tabulate import tabulate
+# в меню отображаются ранее созданные функции и их реализация, при ошибке ввода нужных параметров, код обрабатывает ошибки
 # импортируем, ранее созданные функции
 from create_note_function import create_note
 from display_notes_function import display_notes

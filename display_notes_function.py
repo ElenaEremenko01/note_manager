@@ -1,3 +1,5 @@
+#Функция принимает список для отображения заметок,
+# заметки могут отображаться в полном в виде и только заголовки, заметки могут отображаться в сортированном виде
 from datetime import datetime as dt
 from colorama import Fore, Style, init
 from tabulate import tabulate

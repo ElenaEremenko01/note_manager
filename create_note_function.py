@@ -1,3 +1,4 @@
+#Функция создает заметки на основе ввода пользователя, заметка собирается в словарь, который возвращает функция.
 from datetime import datetime as dt
 from datetime import date
 from datetime import timedelta as td
