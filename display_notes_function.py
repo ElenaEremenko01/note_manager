@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 from colorama import Fore, Style, init
 from tabulate import tabulate
-init(autoreset=True)# сбрасываем стиль, чтобы цвета в цикле не повторялись
+init(autoreset= True)# сбрасываем стиль, чтобы цвета в цикле не повторялись
 #Создаем функцию для отображения заметок
 def display_notes(note_list):
     # Для пустого списка, возвращает список
@@ -25,7 +25,7 @@ def display_notes(note_list):
                     print(f'{Fore.RED}Ответ может быть:{Style.BRIGHT}{Fore.RED} да\нет')
             # Сортировка по дате дэдлайна
             if choice_for_sorted == 'да':
-                sorted_data = sorted(note_list, key=lambda x: dt.strptime(x['Дата истечения заметки'], '%d.%m.%Y'))
+                sorted_data = sorted(note_list, key=lambda x: dt.strptime(x['issue_date'], '%d.%m.%Y'))
             else:
                 sorted_data = note_list
                 # Цикл для отображения укороченного списка заметок с использованием таблицы

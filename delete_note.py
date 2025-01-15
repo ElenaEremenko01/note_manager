@@ -1,56 +1,98 @@
 #Программа удаляет заметки на основе введённого пользователем имени пользователя или заголовка.
 #Если заметка не найдена, выводится соответствующее сообщение.
 #После удаления обновлённый список заметок корректно отображается.
+from tabulate import tabulate
+from colorama import Fore, Style, init
+init(autoreset= True)
+note_try1 = [{'username': 'Алексей', 'title': 'Купить продукты на неделю', 'content': 'Купить продукт на неделю'},
+         {'username': 'Мария', 'title': 'Учеба', 'content': 'Подготовиться к экзамену'},
+         {'username': 'Елена', 'title': 'Книга', 'content': 'Написать книгу'}]
 
-note_try1 = [{'Имя': 'Алексей', 'Заголовок': 'Купить продукты на неделю', 'Описание': 'Купить продукт на неделю'},
-         {'Имя': 'Мария', 'Заголовок': 'Учеба', 'Описание': 'Подготовиться к экзамену'},
-         {'Имя': 'Елена', 'Заголовок': 'Книга', 'Описание': 'Написать книгу'}]
-# создаем функцию для отображения списка заметок
-def display_note(notes):
-    if not notes:
-        print('Список заметок пуст')
-    else:
-        print('Текущий список заметок:')
-        for i,note in enumerate(notes):
-            print(f'{i}. Имя: {notes[i]['Имя']}')
-            print(f'Заголовок: {notes[i]['Заголовок']}')
-            print(f'Описание: {notes[i]['Описание']}')
-
-display_note(note_try1)
-note_try = list(note_try1)
 
 # запускаем цикл, с запросом удаления заметки
-while True:
-    deletion = input('Желаете удалить заметку?(да\нет)').lower()
-    if deletion == 'да': # Если заметку хотят удалить запускаем цикл для проверки введенных параметров
-        note_del = input('Введите имя пользователя или заголовок для удаления заметки:').lower()
-        for i in reversed(range(len(note_try))):
-            if note_try[i]['Имя'].lower() == note_del:
-                confirmation2 = input('Вы уверены, что хотите удалить заметку?(да\нет)').lower()
+def delete_note(notes):
+    if not notes:
+        print(Fore.GREEN + Style.BRIGHT + 'Список заметок пуст')
+        return notes
+    else:
+        print(Fore.CYAN + 'Текущий список заметок:')
+        headers = ['№', 'Имя пользователя', 'Заголовок', 'Содержание']  # Собираем названия столбцов для таблицы
+        table_list = []
+        for i, note in enumerate(notes, 1):
+            table_list.append([i, note['username'],
+                               note['title'],
+                               note['content']])
+        print(tabulate(table_list, headers=headers, tablefmt='grid', stralign='center'))
+    note_del = input(
+        f'{Fore.WHITE}Введите {Style.BRIGHT}{Fore.YELLOW}ИМЯ ПОЛЬЗОВАТЕЛЯ{Style.NORMAL}{Fore.WHITE} или {Style.BRIGHT}{Fore.YELLOW}ЗАГОЛОВОК{Style.NORMAL}{Fore.WHITE} для удаления заметки:').strip().lower()
+    for i in reversed(range(len(notes))):
+            if notes[i]['username'].lower() == note_del:
+                confirmation2 = input(f'{Fore.RED}Вы уверены, что хотите удалить заметку?{Fore.YELLOW}(да\нет)').strip().lower()
                 if confirmation2 == 'да':
-                    del note_try[i]
-                    print('Заметка успешно удалена')
-                    display_note(note_try)
+                    del notes[i]
+                    print(Fore.GREEN + 'Заметка успешно удалена')
+                    print(Fore.CYAN + 'Текущий список заметок:')
+                    headers = ['№', 'Имя пользователя', 'Заголовок', 'Содержание']  # Собираем названия столбцов для таблицы
+                    table_list = []
+                    for j, note in enumerate(notes, 1):
+                        table_list.append([j, note['username'],
+                                           note['title'],
+                                           note['content']])
+                    print(tabulate(table_list, headers=headers, tablefmt='grid', stralign='center'))
                     break
-            elif note_try[i]['Заголовок'].lower() == note_del:
-                confirmation3 = input('Вы уверены, что хотите удалить заметку?(да\нет)').lower()
+                elif confirmation2 == 'нет':
+                    print(Fore.CYAN + 'Текущий список заметок:')
+                    headers = ['№', 'Имя пользователя', 'Заголовок','Содержание']  # Собираем названия столбцов для таблицы
+                    table_list = []
+                    for j, note in enumerate(notes, 1):
+                        table_list.append([j, note['username'],
+                                           note['title'],
+                                           note['content']])
+                    print(tabulate(table_list, headers=headers, tablefmt='grid', stralign='center'))
+                    break
+                else:
+                    print(f'{Fore.RED}Ошибка!!!')
+                    print(f'{Fore.RED}Ответ может быть {Fore.YELLOW}{Style.BRIGHT}да/нет')
+            elif notes[i]['title'].lower() == note_del:
+                confirmation3 = input(f'Вы уверены, что хотите удалить заметку?{Fore.YELLOW}(да\нет)').strip().lower()
                 if confirmation3 == 'да':
-                    del note_try[i]
-                print('Заметка успешно удалена')
-                display_note(note_try)
-                break
+                    del notes[i]
+                    print(Fore.GREEN + 'Заметка успешно удалена')
+                    print(Fore.CYAN + 'Текущий список заметок:')
+                    headers = ['№', 'Имя пользователя', 'Заголовок', 'Содержание']  # Собираем названия столбцов для таблицы
+                    table_list = []
+                    for j, note in enumerate(notes, 1):
+                        table_list.append([j, note['username'],
+                                       note['title'],
+                                       note['content']])
+                    print(tabulate(table_list, headers=headers, tablefmt='grid', stralign='center'))
+                    break
+                elif confirmation3 == 'нет':
+                    print(Fore.CYAN + 'Текущий список заметок:')
+                    headers = ['№', 'Имя пользователя', 'Заголовок','Содержание']  # Собираем названия столбцов для таблицы
+                    table_list = []
+                    for j, note in enumerate(notes, 1):
+                        table_list.append([j, note['username'],
+                                           note['title'],
+                                           note['content']])
+                    print(tabulate(table_list, headers=headers, tablefmt='grid', stralign='center'))
+                    break
+                else:
+                    print(f'{Fore.RED}Ошибка!!!')
+                    print(f'{Fore.RED}Ответ может быть {Fore.YELLOW}{Style.BRIGHT}да/нет')
             else:
-                print('Заметки с такими параметрами нет')
-                display_note(note_try)
-    elif deletion == 'нет': # Если заметку не хотят удалять программа завершиться
-        display_note(note_try)
-        break
-    elif not note_try: # Если заметок не останется на экране отобразиться следующий ответ
-        print('Список заметок пуст')
-        break
-    else: # Если ввод будет неверным цикл повториться и отобразится подсказка
-        print('Ошибка неверный ввод. Ответ может быть: "да" или "нет"')
-        display_note(note_try)
+                print(Fore.RED + 'Заметки с такими параметрами нет')
+                print(Fore.CYAN + 'Текущий список заметок:')
+                headers = ['№', 'Имя пользователя', 'Заголовок', 'Содержание']  # Собираем названия столбцов для таблицы
+                table_list = []
+                for j, note in enumerate(notes, 1):
+                    table_list.append([j, note['username'],
+                                   note['title'],
+                                   note['content']])
+                print(tabulate(table_list, headers=headers, tablefmt='grid', stralign='center'))
 
 
+
+
+delete_note(note_try1)
 
