@@ -9,7 +9,7 @@ note_try1 = [{'username': 'Алексей', 'title': 'Купить продук�
          {'username': 'Елена', 'title': 'Книга', 'content': 'Написать книгу'}]
 
 
-# запускаем цикл, с запросом удаления заметки
+# запускаем цикл, с запросом удаления заметки Функция принимает словарь
 def delete_note(notes):
     if not notes:
         print(Fore.GREEN + Style.BRIGHT + 'Список заметок пуст')
@@ -90,9 +90,9 @@ def delete_note(notes):
                                    note['title'],
                                    note['content']])
                 print(tabulate(table_list, headers=headers, tablefmt='grid', stralign='center'))
+    return table_list # возвращает список
 
 
-
-
-delete_note(note_try1)
+if __name__ == "__main__":
+    delete_note(note_try1)
 

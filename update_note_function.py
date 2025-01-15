@@ -71,4 +71,5 @@ notes =  {'username': 'Алексей',
               'created_date': '27-11-2024',
               'issue_date': '30-11-2024'}
 
-print(update_note(notes))
+if __name__ == "__main__":
+    new_note = update_note(notes)

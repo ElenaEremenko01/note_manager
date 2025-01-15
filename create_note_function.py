@@ -56,13 +56,14 @@ def create_note():
             print(f'Дэдлайн нужно ввести в формате: дд.мм.гггг (Например: 26.12.2000)')
         issue_date = input('Введите дату дедлайна в формате (дд.мм.гггг):')
     #Собираем данные заметки в словарь
-    note = {'Имя пользователя': username,
-        'Заголовок': unique,
-        'Содержание': content,
-        'Статус': status,
-        'Дата создания заметки': created_date,
-        'Дата истечения заметки': issue_date.strftime('%d.%m.%Y')}
+    note = {'username': username,
+        'title': unique,
+        'content': content,
+        'status': status,
+        'created_date': created_date,
+        'issue_date': issue_date.strftime('%d.%m.%Y')}
     return note # Возвращаем функцию в виде словаря
 
 
-print(f'Заметка создана: {create_note()}')
+if __name__ == "__main__":
+    new_note = create_note()

@@ -1,7 +1,7 @@
 from colorama import Fore, Style, init
 from tabulate import tabulate
 init(autoreset=True)# сбрасываем стиль, чтобы цвета в цикле не повторялись
-# Создаем функцию для поиска заметок
+# Создаем функцию для поиска заметок принимает список и критерии для поиска
 def search_notes(notes, keyword=None, status=None):
     # Если заметок нет, то выйдет сообщение об отсутствии и функция вернет список
     if not notes:
@@ -52,8 +52,8 @@ test_note = [
         {"username": "Ольга", "title": "Здоровье", "content": "Записаться к врачу", "status": "новая", "created_date": "18.11.2024", "issue_date": "23.11.2024"},
         {"username": "Дмитрий", "title": "Отпуск", "content": "Собрать документы", "status": "новая", "created_date": "15.11.2024", "issue_date": "20.11.2024"},]
 
-keyword_for_search = str(input('Введите ключевое слово').lower())
-status_for_search = str(input('Введите статус заметки').lower())
 
-search_notes(test_note, keyword_for_search,status_for_search)
 
+
+if __name__ == "__main__":
+    new_note = search_notes(test_note, 'список покупок', 'новая')

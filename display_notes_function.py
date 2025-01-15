@@ -6,7 +6,6 @@ init(autoreset= True)# сбрасываем стиль, чтобы цвета в
 def display_notes(note_list):
     # Для пустого списка, возвращает список
     if not note_list:
-        print(Fore.GREEN +'Копировать код')
         print(Fore.GREEN + 'У вас нет сохранённых заметок')
         return note_list
 
@@ -33,6 +32,7 @@ def display_notes(note_list):
             table_list = []# Создаем пустой список для того, чтобы сюда добавить содержание после enumerate(выведет кортеж)
             for i, note in enumerate(sorted_data, 1):
                 table_list.append([i, note["username"], note["title"]] )
+            print(f'{Fore.CYAN}Текущий список заметок:')
             print(tabulate(table_list, headers= headers, tablefmt='grid', stralign='center'))
             break
         elif choice_for_display == 'полные данные':
@@ -57,6 +57,7 @@ def display_notes(note_list):
                                        note['status'],
                                        note['created_date'],
                                        note['issue_date']])
+            print(f'{Fore.CYAN}Текущий список заметок:')
             print(tabulate(table_list, headers= headers, tablefmt='grid', stralign='center'))# разделяем каждую заметку в таблице чертой и выравниваем по центру
             break
             # обработка ошибок
@@ -71,5 +72,6 @@ test_notes = [
         {"username": "Ольга", "title": "Здоровье", "content": "Записаться к врачу", "status": "новая", "created_date": "18.11.2024", "issue_date": "23.11.2024"},
         {"username": "Дмитрий", "title": "Отпуск", "content": "Собрать документы", "status": "новая", "created_date": "15.11.2024", "issue_date": "20.11.2024"},]
 
+if __name__ == "__main__":
+    new_note = display_notes(test_notes)
 
-display_notes(test_notes)
