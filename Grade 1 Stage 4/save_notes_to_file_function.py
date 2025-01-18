@@ -1,22 +1,37 @@
 
+
+
 # функция содержит параметры:
 # notes - список заметок (список со словарями)
-# filename - файл, кда будем записывать заметки
+# filename - файл, куда будем записывать заметки
 # возвращаем файл с заметками
 def save_notes_to_file(notes, filename):
+    try:
+        # если файл будет не найден, то создадим новый файл
+        with open('new_file.txt', 'x', encoding='utf-8') as file:
+            # в цикле проходимся по всем заметкам в списке и записываем в файл
+            for note in notes:
+                file.write(f'Имя пользователя: {note["username"]}\n')
+                file.write(f'Заголовок: {note["title"]}\n')
+                file.write(f'Описание: {note["content"]}\n')
+                file.write(f'Статус: {note["status"]}\n')
+                file.write(f'Дата создания: {note["created_date"]}\n')
+                file.write(f'Дедлайн: {note["issue_date"]}\n')
+                file.write(f'_' * 30 + '\n')
+                print(f'Файл {filename} не найден. Создан новый файл.')
+    except FileExistsError:
     # открываем текстовый файл в режиме записи
-    with open(filename, 'w', encoding='utf-8') as file:
-        # в цикле проходимся по всем заметкам в списке
-        for note in notes:
-            file.write(f'Имя пользователя: {note["username"]}\n')
-            file.write(f'Заголовок: {note["title"]}\n')
-            file.write(f'Описание: {note["content"]}\n')
-            file.write(f'Статус: {note["status"]}\n')
-            file.write(f'Дата создания: {note["created_date"]}\n')
-            file.write(f'Дедлайн: {note["issue_date"]}\n')
-            file.write(f'_' * 30 + '\n')
-
-    return file
+        with open(filename, 'w', encoding='utf-8') as file:
+            # в цикле проходимся по всем заметкам в списке и записываем в файл
+            for note in notes:
+                file.write(f'Имя пользователя: {note["username"]}\n')
+                file.write(f'Заголовок: {note["title"]}\n')
+                file.write(f'Описание: {note["content"]}\n')
+                file.write(f'Статус: {note["status"]}\n')
+                file.write(f'Дата создания: {note["created_date"]}\n')
+                file.write(f'Дедлайн: {note["issue_date"]}\n')
+                file.write(f'_' * 30 + '\n')
+            return file
 
 if __name__ == "__main__":
     test_note = [
@@ -30,7 +45,7 @@ if __name__ == "__main__":
          "created_date": "18.11.2024", "issue_date": "23.11.2024"},
         {"username": "Дмитрий", "title": "Отпуск", "content": "Собрать документы", "status": "новая",
          "created_date": "15.11.2024", "issue_date": "20.11.2024"}, ]
-    save_notes_to_file(test_note, 'file_name.txt')
+    save_notes_to_file(test_note, '../Grade 1 Stage 3/file_name.txt')
 
 
 
