@@ -33,7 +33,7 @@ def load_notes_from_file(filename):
                 if not line:
                     continue
                 # Если строка начинается на разделение, добавляем ее в словарь и затем в список
-                elif line == '_' * 30 :
+                elif line == '_ _ _':
                     if note:
                         notes.append(note)
                         # возвращаем пустой словарь для новой заметки

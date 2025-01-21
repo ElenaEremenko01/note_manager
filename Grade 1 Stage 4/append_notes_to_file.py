@@ -16,7 +16,7 @@ def save_notes_to_file(notes, filename):
                 file.write(f'Статус: {note["status"]}\n')
                 file.write(f'Дата создания: {note["created_date"]}\n')
                 file.write(f'Дедлайн: {note["issue_date"]}\n')
-                file.write(f'_' * 30 + '\n')
+                file.write(f'_ _ _''\n')
                 print(f'Файл {filename} не найден. Создан новый файл.')
     except FileExistsError:
     # открываем текстовый файл в режиме добавления к записанному
