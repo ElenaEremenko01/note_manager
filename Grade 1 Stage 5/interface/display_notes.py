@@ -7,15 +7,17 @@ from datetime import datetime as dt
 # заметки могут отображаться в сортированном виде
 
 # сбрасываем стиль, чтобы цвета в цикле не повторялись
-init(autoreset= True)
-#Создаем функцию для отображения заметок
+init(autoreset=True)
+
+
+# Создаем функцию для отображения заметок
 def display_notes(note_list):
     # Для пустого списка, возвращает список
     if not note_list:
         print(Fore.GREEN + 'У вас нет сохранённых заметок')
         return note_list
 
-    #Цикл для запроса способа отображения заметок
+    # Цикл для запроса способа отображения заметок
     while True:
         choice_for_display = input(f'Вывести только заголовки заметок или полные данные?'
                                    f'{Style.BRIGHT}{Fore.CYAN}'
@@ -29,7 +31,7 @@ def display_notes(note_list):
                     break
                 # Обработка ошибок
                 else:
-                    print(Fore.RED + Style.BRIGHT+'Ошибка!!!')
+                    print(Fore.RED + Style.BRIGHT + 'Ошибка!!!')
                     print(f'{Fore.RED}Ответ может быть:{Style.BRIGHT}{Fore.RED} да\нет')
             # Сортировка по дате дэдлайна
             if choice_for_sorted == 'да':
@@ -42,9 +44,9 @@ def display_notes(note_list):
             # Создаем пустой список для того, чтобы сюда добавить содержание после enumerate(выведет кортеж)
             table_list = []
             for i, note in enumerate(sorted_data, 1):
-                table_list.append([i, note["username"], note["title"]] )
+                table_list.append([i, note["username"], note["title"]])
             print(f'{Fore.CYAN}Текущий список заметок:')
-            print(tabulate(table_list, headers= headers, tablefmt='grid', stralign='center'))
+            print(tabulate(table_list, headers=headers, tablefmt='grid', stralign='center'))
             break
         elif choice_for_display == 'полные данные':
             while True:
@@ -65,14 +67,14 @@ def display_notes(note_list):
             table_list = []
             for i, note in enumerate(sorted_data, 1):
                 table_list.append([i, note['username'],
-                                       note['title'],
-                                       note['content'],
-                                       note['status'],
-                                       note['created_date'],
-                                       note['issue_date']])
+                                   note['title'],
+                                   note['content'],
+                                   note['status'],
+                                   note['created_date'],
+                                   note['issue_date']])
             print(f'{Fore.CYAN}Текущий список заметок:')
-             # разделяем каждую заметку в таблице чертой и выравниваем по центру
-            print(tabulate(table_list, headers= headers, tablefmt='grid', stralign='center'))
+            # разделяем каждую заметку в таблице чертой и выравниваем по центру
+            print(tabulate(table_list, headers=headers, tablefmt='grid', stralign='center'))
             break
 
             # обработка ошибок

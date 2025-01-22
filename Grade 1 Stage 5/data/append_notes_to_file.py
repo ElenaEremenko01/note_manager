@@ -17,7 +17,7 @@ def append_notes_to_file(notes, filename):
                 file.write(f'Дата создания: {note["created_date"]}\n')
                 file.write(f'Дедлайн: {note["issue_date"]}\n')
                 file.write(f'_ _ _''\n')
-                print(f'Файл {filename} не найден. Создан новый файл.')
+            print(f'Файл {filename} не найден. Создан новый файл.')
     except FileExistsError:
     # открываем текстовый файл в режиме добавления к записанному
         with open(filename, 'a', encoding='utf-8') as file:
@@ -29,7 +29,7 @@ def append_notes_to_file(notes, filename):
                 file.write(f'Статус: {note["status"]}\n')
                 file.write(f'Дата создания: {note["created_date"]}\n')
                 file.write(f'Дедлайн: {note["issue_date"]}\n')
-                file.write(f'_' * 30 + '\n')
+                file.write(f'___''\n')
             return file
 
 if __name__ == "__main__":
