@@ -1,13 +1,21 @@
 # в меню отображаются ранее созданные функции и их реализация,
 # при ошибке ввода нужных параметров, код обрабатывает ошибки
 # импортируем, ранее созданные функции
-from create_note_function import create_note
-from display_notes_function import display_notes
-from update_note_function import update_note
-from delete_note import delete_note
-from search_notes_function import search_notes
+import grade_1_stage_3.note_creator.create_note_function
+import grade_1_stage_3.note_deletor.delete_note_function
+import grade_1_stage_3.note_updator.update_note_function
+import grade_1_stage_3.note_searcher.search_notes_function
+import grade_1_stage_3.display_notes_function
+
 
 from colorama import Fore, Style, init
+
+from grade_1_stage_3.note_creator.create_note_function import create_note
+from grade_1_stage_3.note_deletor.delete_note_function import delete_note
+from grade_1_stage_3.note_searcher.search_notes_function import search_notes
+from grade_1_stage_3.note_updator.update_note_function import update_note
+from grade_1_stage_3.display_notes_function import display_notes
+
 init(autoreset= True)
 # создаем цикл для отображения меню
 while True:

@@ -45,7 +45,7 @@ if __name__ == "__main__":
          "created_date": "18.11.2024", "issue_date": "23.11.2024"},
         {"username": "Дмитрий", "title": "Отпуск", "content": "Собрать документы", "status": "новая",
          "created_date": "15.11.2024", "issue_date": "20.11.2024"}, ]
-    save_notes_to_file(test_note, '../Grade 1 Stage 3/file_name.txt')
+    save_notes_to_file(test_note, '../grade_1_stage_3/file_name.txt')
 
 
 
