@@ -1,0 +1,2 @@
+import note_manager.interface.display_notes
+import note_manager.interface.menu
