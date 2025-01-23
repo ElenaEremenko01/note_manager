@@ -1,9 +1,0 @@
-import note_manager.data.save_notes_to_file
-import note_manager.data.load_notes_from_file
-import note_manager.data.save_notes_json
-import note_manager.data.append_notes_to_file
-import note_manager.utils.data_validator
-import note_manager.utils.status_validator
-import note_manager.utils.uuid_geneator
-import note_manager.interface.display_notes
-import note_manager.interface.menu
