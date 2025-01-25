@@ -13,7 +13,7 @@ class TestNoteManager(unittest.TestCase):
                   'content': 'This is test',
                   'status': 'new',
                   'created_date': '01.01.2025',
-                  'issue_date': '10.01.2026'}]
+                  'issue_date': '10.01.2029'}]
         test_filename = 'test_notes.txt'
         save_notes_to_file(notes, test_filename)
         loaded_notes = load_notes_from_file(test_filename)
