@@ -1,4 +1,4 @@
-
+import json
 
 #Создаем функцию для чтения заметок из файла
 #Параметры функции - текстовый документ
@@ -6,10 +6,16 @@
 def load_notes_from_file(filename):
     # обработка исключений при работе с файлом
     try:
+        if filename.endswith('.json'):
+            with open(filename, 'r', encoding='utf-8') as file:
+                return json.load(file)
         # Открываем файл в режиме чтения с кодировкой для чтения кириллицы
-        with open(filename, 'r', encoding='utf-8') as file:
+
+        else:
+            with open(filename, 'r', encoding='utf-8') as file:
             # Разделяем заметку на строки
-            lines = file.readlines()
+                lines = file.readlines()
+
     except FileNotFoundError:
         print('Файл не найден')
         print('Проверьте правильность загрузки файла')
@@ -54,6 +60,7 @@ def load_notes_from_file(filename):
                 note['status'] = note.pop('Статус')
                 note['created_date'] = note.pop('Дата создания')
                 note['issue_date'] = note.pop('Дедлайн')
+
     except ValueError:
         print('Ошибка при чтении файла. Проверьте его содержимое')
     except KeyError:
@@ -64,4 +71,4 @@ def load_notes_from_file(filename):
 
 
 if __name__ == "__main__":
-    print(load_notes_from_file('loading.txt'))
+    print(load_notes_from_file('new_file.txt'))

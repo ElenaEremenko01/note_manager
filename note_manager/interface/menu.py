@@ -42,7 +42,7 @@ while True:
         create_list.append(note)
     # вызываем функцию отображения, куда вкладываем список созданный в create_note
     elif choice == 2:
-        display_note = display_notes(create_list)
+       display_note = display_notes(create_list)
     # вызываем функцию обновления заметок, куда передаем словарь из функции create_note
     elif choice == 3:
         updating = update_note(note)

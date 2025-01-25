@@ -4,20 +4,21 @@ import json
 # каждая заметка записывается в виде словаря
 # весь список заметок сохраняется как JSON-структура
 # возвращает файл с сериализованными заметками
-def save_notes_to_file(notes, filename):
+def save_notes_to_json(notes, filename):
     try:
         # если файл будет не найден, то создадим новый файл
-        with open('new_file_json.txt', 'x', encoding='utf-8') as file:
+        with open('new_file.json', 'x', encoding='utf-8') as file:
             # записываем данные в файл в json для сериализации с отступами
             json.dump(notes, file, indent=4, ensure_ascii=False)
-        return file
 
     except FileExistsError:
     # открываем текстовый файл в режиме записи, если он существует
         with open(filename, 'w', encoding='utf-8') as file:
             # записываем данные в файл в json для сериализации с отступами
             json.dump(notes, file, indent=4, ensure_ascii=False)
-        return file
+
+
+
 
 
 
@@ -34,4 +35,4 @@ if __name__ == "__main__":
          "created_date": "18.11.2024", "issue_date": "23.11.2024"},
         {"username": "Дмитрий", "title": "Отпуск", "content": "Собрать документы", "status": "новая",
          "created_date": "15.11.2024", "issue_date": "20.11.2024"}, ]
-    save_notes_to_file(test_note, 'data.txt')
+    save_notes_to_json(test_note, 'new_file.json')
