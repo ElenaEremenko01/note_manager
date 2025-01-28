@@ -1,11 +1,7 @@
 # в меню отображаются ранее созданные функции и их реализация,
 # при ошибке ввода нужных параметров, код обрабатывает ошибки
 # импортируем, ранее созданные функции
-import grade_1_stage_3.note_creator.create_note_function
-import grade_1_stage_3.note_deletor.delete_note_function
-import grade_1_stage_3.note_updator.update_note_function
-import grade_1_stage_3.note_searcher.search_notes_function
-import grade_1_stage_3.display_notes_function
+
 
 
 from colorama import Fore, Style, init
